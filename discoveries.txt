@@ -1,0 +1,40 @@
+So far we learned that:
+
+
+Malloc:
+    It gets a block of size determined by the user and reservates this
+    as memory space for the pointer to save whatever info it want
+    (The information saved inside the pointer must be the same type as declared pointer).
+    It also separate memories in spaces called "chunks". So, you can refer to that chunk and work with a part of memory
+
+    Example can be found in: https://cplusplus.com/reference/cstdlib/malloc/
+
+Free:
+    As the name sugests, it free the memory alocated by malloc.
+    One important thing to be aware is that when we execute the command free(void*)
+    the data inside that memory block is not erased just in time, they will only be erased
+    when the OS alocates the memory block for another proccess and the proccess write above the used address
+
+Calloc:
+    Acts like malloc but it has 2 main differences
+    1 - Erases all the data inside the block it reserves and replace it with a 0 (zero)
+    2 - You can set how many blocks do you want to be reservated
+
+
+Realloc:
+    If you need to get more/less memory for a pointer this is the common statment to use.
+    When the operation is performed, the content inside the pointer is copied to another address in the memory
+    example:
+        lets suppose we have address A with values (0,1,2,3,4) and we need to get more memory
+        What the system does is check for new address with more space, lets call it B
+
+        Before receive A information B is like that (0,0,0,0,0,0,0,0,0). After realoc B will look like this (0,1,2,3,4,0,0,0,0)
+        It is not well described in the text, but I believe after realloc A sets the old address free
+
+
+How GNU WORKS (https://www.gnu.org/software/libc/manual/html_node/Memory-Allocation-and-C.html#Dynamic-Memory-Allocation)
+As described in the site, 
+***The only way to get dynamically allocated memory is via a system call***
+This affirmation could be a hint of what I need to do to create my own memory allocator.
+Another interesting thing about dynamic allocation is that it requires more computation time
+So, just used it when its really need
