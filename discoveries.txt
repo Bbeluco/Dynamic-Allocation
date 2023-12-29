@@ -35,6 +35,10 @@ Realloc (https://www.gnu.org/software/libc/manual/html_node/Changing-Block-Size.
         It is not well described in the text, but I believe after realloc A sets the old address free
 
 
+Mcheck:
+    It validates the heap to see if can find any corruption inside the memory. It is configurable as said here
+    https://www.gnu.org/software/libc/manual/html_node/Heap-Consistency-Checking.html
+
 How GNU WORKS (https://www.gnu.org/software/libc/manual/html_node/Memory-Allocation-and-C.html#Dynamic-Memory-Allocation)
 As described in the site, 
 ***The only way to get dynamically allocated memory is via a system call***
