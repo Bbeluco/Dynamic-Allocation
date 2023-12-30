@@ -11,5 +11,6 @@ struct ChunkInfo {
 };
 
 void* bad_malloc(unsigned int size);
+void bad_memory_free(void* chunk);
 
 #endif

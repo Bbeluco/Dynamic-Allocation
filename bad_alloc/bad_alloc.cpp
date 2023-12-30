@@ -1,6 +1,7 @@
 #include "bad_alloc.hpp"
 #include <unistd.h>
 #include <iostream>
+#include <errno.h>
 
 ChunkInfo all_chunks{};
 
@@ -25,13 +26,18 @@ void* bad_malloc(unsigned int size) {
     chunk->chunk_size = size_chunk;
     
     ChunkInfo* last_chunk_available = get_last_chunk_available();
-
     chunk->prev = last_chunk_available;
     last_chunk_available->next = address;
 
-
-
-    std::cout << chunk->prev << '\n';
-
     return chunk->address;
+}
+
+void bad_memory_free(void* chunk) {
+    ChunkInfo* chunk_converted = (ChunkInfo*) chunk;
+    if(chunk_converted->address == nullptr){
+        std::cout << "ERROR: Your trying to set a non allocated address free.";
+        return;
+    }
+    brk(chunk_converted->address);
+    chunk_converted->address = nullptr;
 }
