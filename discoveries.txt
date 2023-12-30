@@ -46,6 +46,12 @@ This affirmation could be a hint of what I need to do to create my own memory al
 Another interesting thing about dynamic allocation is that it requires more computation time
 So, just used it when its really need
 
+SBRK:
+    This is a instruction that abstracts system calls, the command goes to the system and asks for more HEAP memory.
+    In my vision,its not ideal to use this as malloc replace bc it request so many memory to the system. And every time we ask for memory
+    the proccess of get this in the system is slow (malloc just points to the new address on the current memory)
+
+    I'll use this strategy in V1 just to construct for the first time things like "malloc" and "free"
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 Memory layout
