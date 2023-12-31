@@ -12,6 +12,5 @@ int main() {
     std::cout << "Address First alloc position: " << &first_alloc << '\n';
 
     bad_memory_free(first_alloc);
-    std::cout << "EVERYTHING ok\n";
     return 0;
 }

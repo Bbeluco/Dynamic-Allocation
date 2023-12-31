@@ -5,27 +5,30 @@
 
 ChunkInfo all_chunks{};
 
-ChunkInfo* get_last_chunk_available() {
-    ChunkInfo* last_chunk = all_chunks.next;
-    if(last_chunk == nullptr){
+ChunkInfo* search_chunk(unsigned int size) {
+    ChunkInfo* chunk = all_chunks.next;
+    if(chunk == nullptr){
         return &all_chunks;
     }
-    while(last_chunk->next != nullptr){
-        last_chunk = last_chunk->next;
+
+    while(chunk->next != nullptr){
+        chunk = chunk->next;
     }
 
-    return last_chunk;
+    return chunk;
 }
 
 void* bad_malloc(unsigned int size) {
     ChunkInfo* chunk;
     
     unsigned int size_chunk{size * SIZE_CHUNK_IN_BITS};
+    
     ChunkInfo* address = (ChunkInfo*) sbrk(size_chunk);
+
     chunk->next = address;
     chunk->chunk_size = size_chunk;
     
-    ChunkInfo* last_chunk_available = get_last_chunk_available();
+    ChunkInfo* last_chunk_available = search_chunk(size_chunk);
     chunk->prev = last_chunk_available;
     last_chunk_available->next = address;
 
@@ -40,4 +43,6 @@ void bad_memory_free(void* chunk) {
     }
     brk(chunk_converted->address);
     chunk_converted->address = nullptr;
+    chunk_converted->next = nullptr;
+    chunk_converted->prev->next = nullptr;
 }

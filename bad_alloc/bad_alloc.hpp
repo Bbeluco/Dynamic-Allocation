@@ -4,8 +4,8 @@
 const unsigned int SIZE_CHUNK_IN_BITS{16}; //Default chunk size in 64-bits systems when use malloc
 
 struct ChunkInfo {
-    int* address{};
-    int chunk_size{};
+    int* address{nullptr};
+    int chunk_size{0};
     struct ChunkInfo* next{nullptr};
     struct ChunkInfo* prev{nullptr};
 };
